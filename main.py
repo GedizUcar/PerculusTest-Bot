@@ -21,7 +21,7 @@ from threading import Lock
 
 bots_in_session = 0
 bots_in_session_lock = Lock()
-entry_barrier = Barrier(70)
+entry_barrier = Barrier(52)
 camera_clicks = 0
 camera_clicks_lock = Lock()
 session_duration = 500  #
@@ -136,7 +136,7 @@ def main():
     screenshot_dir = "screenshots"
     os.makedirs(screenshot_dir, exist_ok=True)
 
-    pack_size = 70
+    pack_size = 52
     time_between_bots = 10
 
     for i in range(0, len(links), pack_size):
