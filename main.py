@@ -1,4 +1,5 @@
 import os
+import json
 from threading import Thread, Lock, Barrier
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -15,9 +16,12 @@ bots_in_session_lock = Lock()
 entry_barrier = Barrier(52)
 camera_clicks = 0
 camera_clicks_lock = Lock()
-session_duration = 500  #
 
+with open('config.json', 'r') as config_file:
+    config_data = json.load(config_file)
 
+num_bots = config_data['num_bots']
+session_duration = config_data['session_duration']
 def read_links_from_file(file_path):
     with open(file_path, 'r') as file:
         return [line.strip() for line in file.readlines()]
@@ -127,7 +131,8 @@ def main():
     screenshot_dir = "screenshots"
     os.makedirs(screenshot_dir, exist_ok=True)
 
-    pack_size = 52
+
+    pack_size = num_bots
     time_between_bots = 10
 
     for i in range(0, len(links), pack_size):
